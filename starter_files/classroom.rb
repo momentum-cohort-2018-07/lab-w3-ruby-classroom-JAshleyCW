@@ -2,21 +2,40 @@
 # for that student and assignment. Note that Ruby counts arrays from 0, but
 # we are referring to them as 1-10.
 
+def assignment_score(data, student, assignment_num)
+    data[student][assignment_num - 1]
+end
+
 
 # Given a grade_hash and assignment number, return all scores for that
 # assignment. Note that Ruby counts arrays from 0, but we are referring to
 # them as 1-10.
 
 
+def assignment_scores(data, assignment_num)
+    data.values.map{ |i_scores| i_scores[assignment_num - 1] }
+end
+
+
 # Given a grade_hash and assignment number, return the average score for that
 # assignment. Note that Ruby counts arrays from 0, but we are referring to
 # them as 1-10.
+
+def assignment_average_score(data, assignment_num)
+    scores = assignment_scores(data, assignment_num)
+    scores.sum/scores.length
+end
 
 
 # Return a hash of students and their average score.
 # TIP: To convert an array like [[:indiana, 90], [:nevada, 80]] to a hash,
 # use .to_h. Also look at Hash#transform_values.
 
+def averages(data)
+    data.transform_values do |scores|
+    scores.sum/scores.length
+    end    
+end
 
 # Return a letter grade for a numerical score.
 # 90+ => A
@@ -25,12 +44,41 @@
 # 60-69 => D
 # < 60 => F
 
+def letter_grade(score)
+    if score >= 90
+      "A"
+    elsif score >= 80
+      "B"
+    elsif score >= 70
+      "C"
+    elsif score >= 60
+      "D"
+    else
+      "F"
+    end
+end  
+  
 # Return a hash of students and their final letter grade, as determined
 # by their average.
 
+def final_letter_grades(data)
+    averages(data).transform_values do |final|
+        letter_grade(final)    
+    end
+end
 
 # Return the average for the entire class.
 
+def class_average(data)
+    data.transform_values do |final|
+        final.sum/final.length
+    end
+end
 
 # Return an array of the top `number_of_students` students.
+
+def top_students
+    
+end
+
 
